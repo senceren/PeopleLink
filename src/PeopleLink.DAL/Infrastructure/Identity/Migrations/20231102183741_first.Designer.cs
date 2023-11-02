@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(PeopleLinkIdentityContext))]
-    [Migration("20231102111819_duzeltme")]
-    partial class duzeltme
+    [Migration("20231102183741_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers
 {
@@ -57,6 +58,17 @@ namespace WebAPI.Controllers
                 return NotFound();
 
             await _expenseDtoService.DeleteExpenseAsync(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExpense(ExpenseDto expense)
+        {
+            if (expense == null)
+                return NotFound();
+
+            await _expenseDtoService.UpdateAsync(expense);
 
             return NoContent();
         }

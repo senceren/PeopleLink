@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Identity.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialIdentity : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,7 +55,6 @@ namespace Infrastructure.Identity.Migrations
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     AccruedLeave = table.Column<int>(type: "int", nullable: false),
-                    ExpenseAllowance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AdvanceAllowance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

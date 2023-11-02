@@ -61,64 +61,66 @@
                                         {
                                             <div class="alert alert-success">@TempData["DeleteSuccessExpense"]</div>
                                         }
-                                        <table class="table table-inbox table-hover table-striped" id="expenseTable">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <td>Harcama Türü</td>
-                                                    <td>Tutar</td>
-                                                    <td>Para Birimi</td>
-                                                    <td>Talep Tarihi</td>
-                                                    <td>Onay Durumu</td>
-                                                    <td>Onay Tarihi</td>
-                                                    <td>Doküman</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var expense in Model)
-                                                {
-                                                    <tr class="unread text-center">
-                                                        <td class="view-message  dont-show">@Html.DisplayFor(modelItem => expense.ExpenseType)</td>
-                                                        <td class="view-message">@expense.Amount</td>
-                                                        <td class="view-message inbox-small-cells">@Html.DisplayFor(modelItem => expense.Currency)</td>
-                                                        <td class="view-message inbox-small-cells">@expense.RequestDate.ToShortDateString()</td>
-                                                        @if ((expense.Status == "Onay Bekliyor."))
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-warning">@expense.Status</td>
-                                                        }
-                                                        else if ((expense.Status == "Onaylandı."))
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-success">@expense.Status</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-danger">@expense.Status</td>
-                                                        }
-
-                                                        @if (expense.ResponseDate != null)
-                                                        {
-                                                            <td class="view-message inbox-small-cells">@expense.ResponseDate</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message inbox-small-cells">-</td>
-                                                        }
-                                                        <td class="text-center"><a class="dokuman" href="~/document/@expense.DocumentUri" download="@expense.DocumentUri" style="color:midnightblue"><i class="fa-solid fa-download"></i></a></td>
-                                                        @if (expense.Status == "Onay Bekliyor.")
-                                                        {
-                                                            <td class="view-message text-white"><a data-remove-item="@expense.Id" id="btnDeleteExpense" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a></td>
-                                                        }
-                                                        else if (expense.Status == "Onaylandı.")
-                                                        {
-                                                            <td class="view-message text-white"><i class="fa-solid fa-circle-check" style="color: #38be1e;"></i></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message text-white"><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></td>
-                                                        }
+                                        <div class="table-responsive">
+                                            <table class="table table-inbox table-hover table-striped" id="expenseTable">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <td>Harcama Türü</td>
+                                                        <td>Tutar</td>
+                                                        <td>Para Birimi</td>
+                                                        <td>Talep Tarihi</td>
+                                                        <td>Onay Durumu</td>
+                                                        <td>Onay Tarihi</td>
+                                                        <td>Doküman</td>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var expense in Model)
+                                                    {
+                                                        <tr class="unread text-center">
+                                                            <td class="view-message  dont-show">@Html.DisplayFor(modelItem => expense.ExpenseType)</td>
+                                                            <td class="view-message">@expense.Amount</td>
+                                                            <td class="view-message inbox-small-cells">@Html.DisplayFor(modelItem => expense.Currency)</td>
+                                                            <td class="view-message inbox-small-cells">@expense.RequestDate.ToShortDateString()</td>
+                                                            @if ((expense.Status == "Onay Bekliyor."))
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-warning">@expense.Status</td>
+                                                            }
+                                                            else if ((expense.Status == "Onaylandı."))
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-success">@expense.Status</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-danger">@expense.Status</td>
+                                                            }
+
+                                                            @if (expense.ResponseDate != null)
+                                                            {
+                                                                <td class="view-message inbox-small-cells">@expense.ResponseDate</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message inbox-small-cells">-</td>
+                                                            }
+                                                            <td class="text-center"><a class="dokuman" href="~/document/@expense.DocumentUri" download="@expense.DocumentUri" style="color:midnightblue"><i class="fa-solid fa-download"></i></a></td>
+                                                            @if (expense.Status == "Onay Bekliyor.")
+                                                            {
+                                                                <td class="view-message text-white"><a data-remove-item="@expense.Id" id="btnDeleteExpense" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a></td>
+                                                            }
+                                                            else if (expense.Status == "Onaylandı.")
+                                                            {
+                                                                <td class="view-message text-white"><i class="fa-solid fa-circle-check" style="color: #38be1e;"></i></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message text-white"><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

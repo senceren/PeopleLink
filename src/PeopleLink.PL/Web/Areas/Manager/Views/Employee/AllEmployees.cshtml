@@ -35,45 +35,44 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="inbox-body">
-                                        <div class="w-100">
-                                            <table id="employeeTable" class="table-striped table-hover w-100">
-                                                <thead>
-                                                    <tr class="text-center">
-                                                        <th>Fotoğraf</th>
-                                                        <th>Ad - Soyad</th>
-                                                        <th>Meslek</th>
-                                                        <th>Departman</th>
-                                                        <th>Telefon</th>
-                                                        <th>Email</th>
-                                                        <th>Durumu</th>
-                                                        <th>Detay Bilgiler</th>
+                                    <div class="inbox-body table-responsive">
+                                        <table id="employeeTable" class="table-striped table-hover">
+                                            <thead>
+                                                <tr class="text-center">
+                                                    <th>Fotoğraf</th>
+                                                    <th>Ad - Soyad</th>
+                                                    <th>Meslek</th>
+                                                    <th>Departman</th>
+                                                    <th>Telefon</th>
+                                                    <th>Email</th>
+                                                    <th>Durumu</th>
+                                                    <th>Detay Bilgiler</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var employee in Model)
+                                                {
+                                                    <tr>
+                                                        <td><img src="~/img/@employee.PictureUri" alt="Alternate Text" height="60" width="80" /></td>
+                                                        <td>@employee.FirstName  @(employee.MiddleName != null ? employee.MiddleName : "") @(employee.MiddleLastName != null ? employee.MiddleLastName : "") @employee.LastName</td>
+                                                        <td>@employee.OccupationName</td>
+                                                        <td>@employee.DepartmentName</td>
+                                                        <td>@employee.PhoneNumber</td>
+                                                        <td>@employee.Email</td>
+                                                        @if (employee.IsActive)
+                                                        {
+                                                            <td> <div class="bg-success text-white text-center p-1">Aktif</div></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td> <div class="bg-danger text-white text-center p-1">Pasif</div></td>
+                                                        }
+                                                        <td class="text-center"><a asp-controller="Employee" asp-action="DetailEmployee" asp-route-employeeId="@employee.Id"><i class="fa-solid fa-info-circle orange_color2"></i></a></td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var employee in Model)
-                                                    {
-                                                        <tr>
-                                                            <td><img src="~/img/@employee.PictureUri" alt="Alternate Text" height="60" width="80" /></td>
-                                                            <td>@employee.FirstName  @(employee.MiddleName != null ? employee.MiddleName : "") @(employee.MiddleLastName != null ? employee.MiddleLastName : "") @employee.LastName</td>
-                                                            <td>@employee.OccupationName</td>
-                                                            <td>@employee.DepartmentName</td>
-                                                            <td>@employee.PhoneNumber</td>
-                                                            <td>@employee.Email</td>
-                                                            @if (employee.IsActive)
-                                                            {
-                                                                <td> <div class="bg-success text-white text-center p-1">Aktif</div></td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td> <div class="bg-danger text-white text-center p-1">Pasif</div></td>
-                                                            }
-                                                            <td class="text-center"><a asp-controller="Employee" asp-action="DetailEmployee" asp-route-employeeId="@employee.Id"><i class="fa-solid fa-info-circle orange_color2"></i></a></td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                }
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>

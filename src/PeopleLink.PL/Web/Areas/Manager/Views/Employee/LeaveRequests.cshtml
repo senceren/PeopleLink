@@ -53,82 +53,83 @@
                                             }
 
                                         </div>
-                                        <table class="table table-inbox table-hover table-striped" id="leaveTable">
-
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th class="view-message">Personel Ad - Soyad</th>
-                                                    <th class="view-message">İzin Türü</th>
-                                                    <th class="view-message">Başlangıç Tarihi</th>
-                                                    <th class="view-message">Biriş Tarihi</th>
-                                                    <th class="view-message">Toplam Gün</th>
-                                                    <th class="view-message">Talep Tarihi</th>
-                                                    <th class="view-message">Onay Durumu</th>
-                                                    <th class="view-message">Onay/Red Tarihi</th>
-                                                    <th class="view-message">Onay</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.Leaves)
-                                                {
-                                                    <tr class="unread text-center">
-                                                        <td class="view-message">
-                                                            @{
-                                                                var user = await UserManager.FindByIdAsync(item.EmployeeId);
-                                                                if (user != null)
-                                                                {
-                                                                    <span>@user.FirstName @(user.MiddleName != null ? user.MiddleName : "") @user.LastName  @(user.MiddleLastName != null ? user.MiddleLastName : "") </span>
-                                                                }
-                                                            }
-                                                        </td>
-                                                        <td class="view-message">@Html.DisplayFor(modelItem => item.LeaveType)</td>
-                                                        <td class="view-message">@item.StartingDate.ToShortDateString()</td>
-                                                        <td class="view-message">@item.EndingDate.ToShortDateString()</td>
-                                                        <td class="view-message ms-2">@item.TotalDays</td>
-                                                        <td class="view-message">@item.RequestDate.ToShortDateString()</td>
-                                                        @if ((item.Status == "Onay Bekliyor."))
-                                                        {
-                                                            <td> <div class="text-warning">@item.Status <i class="fa-solid fa-circle-exclamation yellow_color"></i></div></td>
-                                                        }
-                                                        else if ((item.Status == "Onaylandı."))
-                                                        {
-                                                            <td><div class="text-success">@item.Status</div></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><div class="text-danger">@item.Status</div></td>
-                                                        }
-                                                        @if (item.ApprovalDate != null)
-                                                        {
-                                                            <td class="view-message">@item.ApprovalDate</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message">-</td>
-                                                        }
-
-                                                        @if (item.Status == "Onay Bekliyor.")
-                                                        {
-                                                            <td>
-                                                                <div class="d-flex align-items-baseline gap-2">
-                                                                    <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateLeave" asp-route-leaveId="@item.Id" asp-route-status="Onaylandı." class="btn btn-success text-white mb-1" id="btnUpdate">Onayla</a>
-                                                                    <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateLeave" asp-route-leaveId="@item.Id" asp-route-status="Reddedildi." class="btn btn-danger text-white mb-1" id="btnUpdate">Reddet</a>
-                                                                </div>
-                                                            </td>
-                                                        }
-                                                        else if (item.Status == "Onaylandı.")
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-check fa-2x" style="color:#28A745"></i></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-xmark fa-2x" style="color:#DC3545"></i></td>
-                                                        }
-
+                                        <div class="table-responsive">
+                                            <table class="table table-inbox table-hover table-striped" id="leaveTable">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th class="view-message">Personel Ad - Soyad</th>
+                                                        <th class="view-message">İzin Türü</th>
+                                                        <th class="view-message">Başlangıç Tarihi</th>
+                                                        <th class="view-message">Biriş Tarihi</th>
+                                                        <th class="view-message">Toplam Gün</th>
+                                                        <th class="view-message">Talep Tarihi</th>
+                                                        <th class="view-message">Onay Durumu</th>
+                                                        <th class="view-message">Onay/Red Tarihi</th>
+                                                        <th class="view-message">Onay</th>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Leaves)
+                                                    {
+                                                        <tr class="unread text-center">
+                                                            <td class="view-message">
+                                                                @{
+                                                                    var user = await UserManager.FindByIdAsync(item.EmployeeId);
+                                                                    if (user != null)
+                                                                    {
+                                                                        <span>@user.FirstName @(user.MiddleName != null ? user.MiddleName : "") @user.LastName  @(user.MiddleLastName != null ? user.MiddleLastName : "") </span>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td class="view-message">@Html.DisplayFor(modelItem => item.LeaveType)</td>
+                                                            <td class="view-message">@item.StartingDate.ToShortDateString()</td>
+                                                            <td class="view-message">@item.EndingDate.ToShortDateString()</td>
+                                                            <td class="view-message ms-2">@item.TotalDays</td>
+                                                            <td class="view-message">@item.RequestDate.ToShortDateString()</td>
+                                                            @if ((item.Status == "Onay Bekliyor."))
+                                                            {
+                                                                <td> <div class="text-warning">@item.Status <i class="fa-solid fa-circle-exclamation yellow_color"></i></div></td>
+                                                            }
+                                                            else if ((item.Status == "Onaylandı."))
+                                                            {
+                                                                <td><div class="text-success">@item.Status</div></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><div class="text-danger">@item.Status</div></td>
+                                                            }
+                                                            @if (item.ApprovalDate != null)
+                                                            {
+                                                                <td class="view-message">@item.ApprovalDate</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message">-</td>
+                                                            }
+
+                                                            @if (item.Status == "Onay Bekliyor.")
+                                                            {
+                                                                <td>
+                                                                    <div class="d-flex align-items-baseline gap-2">
+                                                                        <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateLeave" asp-route-leaveId="@item.Id" asp-route-status="Onaylandı." class="btn btn-success text-white mb-1" id="btnUpdate">Onayla</a>
+                                                                        <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateLeave" asp-route-leaveId="@item.Id" asp-route-status="Reddedildi." class="btn btn-danger text-white mb-1" id="btnUpdate">Reddet</a>
+                                                                    </div>
+                                                                </td>
+                                                            }
+                                                            else if (item.Status == "Onaylandı.")
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-check" style="color: #38be1e;"></i></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></td>
+                                                            }
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

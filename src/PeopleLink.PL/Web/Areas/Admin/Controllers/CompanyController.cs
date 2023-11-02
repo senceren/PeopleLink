@@ -29,7 +29,7 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> AllCompanies()
         {
-            var companies = await _httpClient.GetFromJsonAsync<List<CompanyViewModel>>("https://https://localhost:7167/api/Company");
+            var companies = await _httpClient.GetFromJsonAsync<List<CompanyViewModel>>("https://localhost:7167/api/Company");
 
             var admin = await _userManager.GetUserAsync(User);
             NameMethod(admin);
@@ -39,7 +39,7 @@ namespace Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> CompanyDetail(int companyId)
         {
-            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://https://localhost:7167/api/Company/{companyId}");
+            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://localhost:7167/api/Company/{companyId}");
 
             if (company == null)
                 return NotFound();
@@ -183,17 +183,9 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.CompanyTitles = companyTitles;
             ViewBag.Cities = allCities;
 
-            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://https://localhost:7167/api/Company/{companyVm.Id}");
+            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://localhost:7167/api/Company/{companyVm.Id}");
 
-            //if (companyVm.CompanyLogo != null)
-            //{
-            //    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/document", company.CompanyLogoUrl);
-            //    using (var fileStream = System.IO.File.OpenRead(filePath))
-            //    {
-            //        companyVm.CompanyLogo.CopyTo(fileStream);
-            //    }
-            //}
-
+           
             if (companyVm.MERSISNumber == null || companyVm.TaxNumber == null)
             {
                 ModelState.AddModelError("company.MERSISNumber", "Mersis numarası boş olamaz!");
@@ -241,7 +233,7 @@ namespace Web.Areas.Admin.Controllers
                     IsActive = companyVm.IsActive
                 };
 
-                await _httpClient.PutAsJsonAsync<CompanyViewModel>("https://https://localhost:7167/api/Company/" + updateCompany.Id, updateCompany);
+                await _httpClient.PutAsJsonAsync<CompanyViewModel>("https://localhost:7167/api/Company/" + updateCompany.Id, updateCompany);
 
                 TempData["Success"] = "Şirket başarıyla güncellendi";
                 ViewBag.Logo = updateCompany.CompanyLogoUrl;
@@ -249,21 +241,14 @@ namespace Web.Areas.Admin.Controllers
                 NameMethod(admin);
                 return RedirectToAction("AllCompanies");
             }
-            else
-            {
-                //foreach (var error in .Errors)
-                //{
-                //    ModelState.AddModelError(string.Empty, error.Description);
-                //}
-            }
-
+           
             return View(companyVm);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteCompany(int companyId)
         {
-            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>("https://https://localhost:7167/api/Company/" + companyId);
+            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>("https://localhost:7167/api/Company/" + companyId);
 
             await _httpClient.DeleteAsync("https://localhost:7167/api/Company/" + companyId);
 
@@ -285,14 +270,5 @@ namespace Web.Areas.Admin.Controllers
             TempData["Picture"] = admin.PictureUri;
         }
 
-        //public async Task<JsonResult> GetDistricts(int cityId, string cityName)
-        //{
-        //    var city = await _cityService.GetCityAsync(cityId);
-        //    cityName = (await _cityService.GetCityAsync(cityId)).Name;
-
-        //    var districts = city.Districts.Select(d => new SelectListItem(d.Name, d.Id.ToString())).ToList();
-
-        //    return new JsonResult(districts);
-        //}
     }
 }

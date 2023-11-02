@@ -58,16 +58,6 @@ namespace WebAPI.Services
         public async Task UpdateAsync(LeaveDto leave)
         {
             var updatedLeave = await _leaveService.GetLeaveAsync(leave.Id);
-
-            //updatedLeave.Id = leave.Id;
-            //updatedLeave.EmployeeId = leave.EmployeeId;
-            //updatedLeave.StartingDate = leave.StartingDate;
-            //updatedLeave.EndingDate = leave.EndingDate;
-            //updatedLeave.RequestDate = leave.RequestDate;
-            //updatedLeave.TotalDays = leave.TotalDays;
-            //updatedLeave.LeaveType = leave.LeaveType;
-            //updatedLeave.RequestDate = leave.RequestDate;
-
             updatedLeave.Status = leave.Status;
             updatedLeave.ApprovalDate = leave.ApprovalDate;
 

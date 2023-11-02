@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Dtos;
 using WebAPI.Interfaces;
+using WebAPI.Services;
 
 namespace WebAPI.Controllers
 {
@@ -54,6 +55,17 @@ namespace WebAPI.Controllers
                 return NotFound();
 
             await _advanceDtoService.DeleteAdvanceAsync(id);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAdvance(AdvanceDto advance)
+        {
+            if (advance == null)
+                return NotFound();
+
+            await _advanceDtoService.UpdateAsync(advance);
 
             return NoContent();
         }

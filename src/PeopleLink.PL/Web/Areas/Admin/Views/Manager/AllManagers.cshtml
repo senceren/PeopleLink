@@ -35,7 +35,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="inbox-body">
+                                    <div class="inbox-body table-responsive">
                                         @if (TempData["Success"] != null)
                                         {
                                             <div class="alert alert success">@TempData["Success"]</div>
@@ -49,8 +49,9 @@
                                                     <th>Departman</th>
                                                     <th>Telefon</th>
                                                     <th>Durumu</th>
-                                                    <th>Atandığı Şirket</th>
                                                     <th>Detay Bilgiler</th>
+                                                    <th>Atandığı Şirket</th>
+                                                    <th>Atama Yap</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -64,12 +65,17 @@
                                                         <td>@manager.PhoneNumber</td>
                                                         @if (manager.IsActive)
                                                         {
-                                                            <td> <div class="bg-success text-white text-center p-1">Aktif</div></td>
+                                                            <td><div class="bg-success text-white text-center p-1">Aktif</div></td>
                                                         }
                                                         else
                                                         {
                                                             <td> <div class="bg-danger text-white text-center p-1">Pasif</div></td>
                                                         }
+                                                        <td>
+                                                            <div class="text-center d-flex justify-content-center align-items-center">
+                                                                <a asp-controller="Manager" asp-action="DetailManager" asp-route-managerId="@manager.Id"><i class="fa-solid fa-info-circle orange_color2"></i></a>
+                                                            </div>
+                                                        </td>
                                                         @if (manager.CompanyId == 0)
                                                         {
                                                             <td><div class="text-danger text-center p-1">Atama Yapılmadı!</div></td>
@@ -79,8 +85,10 @@
                                                             <td><div class="text-success text-center p-1">@manager.CompanyName</div></td>
                                                         }
 
-                                                        <td class="text-center">
-                                                            <a asp-controller="Manager" asp-action="DetailManager" asp-route-managerId="@manager.Id"><i class="fa-solid fa-info-circle orange_color2"></i></a>
+                                                        <td>
+                                                            <div class="text-center d-flex flex-column align-items-center">
+                                                                <a asp-controller="Manager" asp-action="AssignManagerToCompany"><i class="fa-solid fa-pencil blue1_color"></i></a>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 }

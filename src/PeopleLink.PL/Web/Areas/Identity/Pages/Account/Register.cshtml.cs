@@ -300,7 +300,7 @@ namespace Web.Areas.Identity.Pages.Account
                 user.Salary = Input.Salary;
                 user.Gender = Input.Gender;
                 user.AccruedLeave = user.IsActive ? (DateTimeOffset.Now > user.HireDate.AddYears(1) ? (DateTimeOffset.Now < user.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
-                               user.AdvanceAllowance = user.Salary * 3;
+                user.AdvanceAllowance = user.Salary * 3;
 
                 string ext = Path.GetExtension(Input.ProfileImage.FileName);
                 string fileName = Path.Combine(Guid.NewGuid().ToString() + ext);
@@ -348,7 +348,14 @@ namespace Web.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToAction("AllEmployees", "Employee", new { area = "Manager" });
+                        if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            return RedirectToAction("AllManagers", "Manager", new { area = "Admin" });
+                        }
+                        else if (await _userManager.IsInRoleAsync(user, "Manager"))
+                        {
+                            return RedirectToAction("AllEmployees", "Employee", new { area = "Manager" });
+                        }
                     }
                     else
                     {

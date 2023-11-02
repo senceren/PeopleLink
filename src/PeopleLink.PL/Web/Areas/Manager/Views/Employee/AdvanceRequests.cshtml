@@ -52,84 +52,85 @@
                                                 <div class="alert alert-success">@TempData["Success"]</div>
                                             }
                                         </div>
-                                        <table class="table table-inbox table-hover table-striped" id="expenseTable">
-
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th class="view-message">Personel Ad - Soyad</th>
-                                                    <th class="view-message">Avans Türü</th>
-                                                    <th class="view-message">Talep Tarihi</th>
-                                                    <th class="view-message">Tutar</th>
-                                                    <th class="view-message">Para Birimi</th>
-                                                    <th class="view-message">Açıklama</th>
-                                                    <th class="view-message">Onay Durumu</th>
-                                                    <th class="view-message">Onay/Red Tarihi</th>
-                                                    <th class="view-message">Onay Durumu</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.Advances)
-                                                {
-                                                    <tr class="unread text-center">
-                                                        <td class="view-message">
-                                                            @{
-                                                                var user = await UserManager.FindByIdAsync(item.EmployeeId);
-                                                                if (user != null)
-                                                                {
-                                                                    <span>@user.FirstName @(user.MiddleName != null ? user.MiddleName : "") @user.LastName  @(user.MiddleLastName != null ? user.MiddleLastName : "") </span>
-                                                                }
-                                                            }
-                                                        </td>
-                                                        <td class="view-message">@Html.DisplayFor(modelItem => item.AdvanceType)</td>
-                                                        <td class="view-message">@item.RequestDate.ToShortDateString()</td>
-
-                                                        <td class="view-message">@item.Amount</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.Currency)</td>
-                                                        <td class="view-message">
-                                                            @Html.Raw(item.Description.Length > 10 ? item.Description.Substring(0, 10) + "..." : item.Description)
-                                                        </td>
-
-                                                        @if ((item.Status == "Onay Bekliyor."))
-                                                        {
-                                                            <td> <div class="text-warning">@item.Status <i class="fa-solid fa-circle-exclamation yellow_color"></i></div></td>
-                                                        }
-                                                        else if ((item.Status == "Onaylandı."))
-                                                        {
-                                                            <td><div class="text-success">@item.Status</div></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><div class="text-danger">@item.Status</div></td>
-                                                        }
-                                                        @if (item.ApprovalDate != null)
-                                                        {
-                                                            <td class="view-message">@item.ApprovalDate</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message">-</td>
-                                                        }
-
-                                                        @if (item.Status == "Onay Bekliyor.")
-                                                        {
-                                                            <td>
-                                                                <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateAdvance" asp-route-advanceId="@item.Id" asp-route-status="Onaylandı." class="btn btn-success text-white mb-1" id="btnUpdate">Onayla</a>
-                                                                <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateAdvance" asp-route-advanceId="@item.Id" asp-route-status="Reddedildi." class="btn btn-danger text-white" id="btnUpdate">Reddet</a>
-                                                            </td>
-                                                        }
-                                                        else if (item.Status == "Onaylandı.")
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-check fa-2x" style="color:#28A745"></i></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-xmark fa-2x" style="color:#DC3545"></i></td>
-                                                        }
-
+                                        <div class="table-responsive">
+                                            <table class="table table-inbox table-hover table-striped" id="advanceTable">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th class="view-message">Personel Ad - Soyad</th>
+                                                        <th class="view-message">Avans Türü</th>
+                                                        <th class="view-message">Talep Tarihi</th>
+                                                        <th class="view-message">Tutar</th>
+                                                        <th class="view-message">Para Birimi</th>
+                                                        <th class="view-message">Açıklama</th>
+                                                        <th class="view-message">Onay Durumu</th>
+                                                        <th class="view-message">Onay/Red Tarihi</th>
+                                                        <th class="view-message">Onay Durumu</th>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Advances)
+                                                    {
+                                                        <tr class="unread text-center">
+                                                            <td class="view-message">
+                                                                @{
+                                                                    var user = await UserManager.FindByIdAsync(item.EmployeeId);
+                                                                    if (user != null)
+                                                                    {
+                                                                        <span>@user.FirstName @(user.MiddleName != null ? user.MiddleName : "") @user.LastName  @(user.MiddleLastName != null ? user.MiddleLastName : "") </span>
+                                                                    }
+                                                                }
+                                                            </td>
+                                                            <td class="view-message">@Html.DisplayFor(modelItem => item.AdvanceType)</td>
+                                                            <td class="view-message">@item.RequestDate.ToShortDateString()</td>
+
+                                                            <td class="view-message">@item.Amount</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Currency)</td>
+                                                            <td class="view-message">
+                                                                @Html.Raw(item.Description.Length > 10 ? item.Description.Substring(0, 10) + "..." : item.Description)
+                                                            </td>
+
+                                                            @if ((item.Status == "Onay Bekliyor."))
+                                                            {
+                                                                <td> <div class="text-warning">@item.Status <i class="fa-solid fa-circle-exclamation yellow_color"></i></div></td>
+                                                            }
+                                                            else if ((item.Status == "Onaylandı."))
+                                                            {
+                                                                <td><div class="text-success">@item.Status</div></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><div class="text-danger">@item.Status</div></td>
+                                                            }
+                                                            @if (item.ApprovalDate != null)
+                                                            {
+                                                                <td class="view-message">@item.ApprovalDate</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message">-</td>
+                                                            }
+
+                                                            @if (item.Status == "Onay Bekliyor.")
+                                                            {
+                                                                <td>
+                                                                    <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateAdvance" asp-route-advanceId="@item.Id" asp-route-status="Onaylandı." class="btn btn-success text-white mb-1" id="btnUpdate">Onayla</a>
+                                                                    <a asp-area="Manager" asp-controller="Employee" asp-action="UpdateAdvance" asp-route-advanceId="@item.Id" asp-route-status="Reddedildi." class="btn btn-danger text-white" id="btnUpdate">Reddet</a>
+                                                                </td>
+                                                            }
+                                                            else if (item.Status == "Onaylandı.")
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-check" style="color: #38be1e;"></i></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></td>
+                                                            }
+
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,9 +147,9 @@
     <partial name="_ValidationScriptsPartial" />
     <script>
 
-        const leaveTable = document.getElementById('advanceTable');
-        if (leaveTable) {
-            new simpleDatatables.DataTable(leaveTable);
+        const advanceTable = document.getElementById('advanceTable');
+        if (advanceTable) {
+            new simpleDatatables.DataTable(advanceTable);
         }
     </script>
 }

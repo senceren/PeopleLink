@@ -63,69 +63,71 @@
                                         {
                                             <div class="alert alert-success">@ViewBag.DeleteSuccessAdvance</div>
                                         }
-                                        <table class="table table-inbox table-hover" id="advanceTable">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <td>Avans Türü</td>
-                                                    <td>Tutar</td>
-                                                    <td>Para Birimi</td>
-                                                    <td>Açıklama</td>
-                                                    <td>Talep Tarihi</td>
-                                                    <td>Onay Durumu</td>
-                                                    <td>Onay Tarihi</td>
-                                                    <td></td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var advance in Model)
-                                                {
-                                                    <tr class="unread text-center">
-                                                        <td class="view-message  dont-show">@Html.DisplayFor(modelItem => advance.AdvanceType)</td>
-                                                        <td class="view-message">@advance.Amount</td>
-                                                        <td class="view-message inbox-small-cells">@Html.DisplayFor(modelItem => advance.Currency)</td>
-                                                        <td>
-                                                            @Html.Raw(advance.Description.Length > 10 ? advance.Description.Substring(0, 10) + "..." : advance.Description)
-                                                        </td>
-                                                        <td class="view-message inbox-small-cells">@advance.RequestDate.ToShortDateString()</td>
-                                                        @if ((advance.Status == "Onay Bekliyor."))
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-warning">@advance.Status</td>
-                                                        }
-                                                        else if ((advance.Status == "Onaylandı."))
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-success">@advance.Status</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message inbox-small-cells text-danger">@advance.Status</td>
-                                                        }
-
-                                                        @if (advance.ResponseDate != null)
-                                                        {
-                                                            <td class="view-message inbox-small-cells">@advance.ResponseDate</td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td class="view-message inbox-small-cells">-</td>
-                                                        }
-
-
-                                                        @if (advance.Status == "Onay Bekliyor.")
-                                                        {
-                                                            <td class="view-message text-white"><a data-remove-item="@advance.Id" id="btnDeleteAdvance" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a></td>
-                                                        }
-                                                        else if (advance.Status == "Onaylandı.")
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-check fa-2x" style="color:#28A745"></i></td>
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><i class="fa-solid fa-circle-xmark fa-2x" style="color:#DC3545"></i></td>
-                                                        }
+                                        <div class="table-responsive">
+                                            <table class="table table-inbox table-hover" id="advanceTable">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <td>Avans Türü</td>
+                                                        <td>Tutar</td>
+                                                        <td>Para Birimi</td>
+                                                        <td>Açıklama</td>
+                                                        <td>Talep Tarihi</td>
+                                                        <td>Onay Durumu</td>
+                                                        <td>Onay Tarihi</td>
+                                                        <td></td>
                                                     </tr>
-                                                }
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var advance in Model)
+                                                    {
+                                                        <tr class="unread text-center">
+                                                            <td class="view-message  dont-show">@Html.DisplayFor(modelItem => advance.AdvanceType)</td>
+                                                            <td class="view-message">@advance.Amount</td>
+                                                            <td class="view-message inbox-small-cells">@Html.DisplayFor(modelItem => advance.Currency)</td>
+                                                            <td>
+                                                                @Html.Raw(advance.Description.Length > 10 ? advance.Description.Substring(0, 10) + "..." : advance.Description)
+                                                            </td>
+                                                            <td class="view-message inbox-small-cells">@advance.RequestDate.ToShortDateString()</td>
+                                                            @if ((advance.Status == "Onay Bekliyor."))
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-warning">@advance.Status</td>
+                                                            }
+                                                            else if ((advance.Status == "Onaylandı."))
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-success">@advance.Status</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message inbox-small-cells text-danger">@advance.Status</td>
+                                                            }
+
+                                                            @if (advance.ResponseDate != null)
+                                                            {
+                                                                <td class="view-message inbox-small-cells">@advance.ResponseDate</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="view-message inbox-small-cells">-</td>
+                                                            }
+
+
+                                                            @if (advance.Status == "Onay Bekliyor.")
+                                                            {
+                                                                <td class="view-message text-white"><a data-remove-item="@advance.Id" id="btnDeleteAdvance" class="btn btn-danger"><i class="fa-solid fa-xmark"></i></a></td>
+                                                            }
+                                                            else if (advance.Status == "Onaylandı.")
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-check" style="color: #38be1e;"></i></td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td><i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i></td>
+                                                            }
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
