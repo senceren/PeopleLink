@@ -131,11 +131,10 @@ namespace Infrastructure.Identity
             };
 
             demoUser.AdvanceAllowance = demoUser.Salary * 3;
-            demoUser.ExpenseAllowance = demoUser.Salary * 3;
             demoUser.AccruedLeave = demoUser.IsActive ? (DateTimeOffset.Now > demoUser.HireDate.AddYears(1) ? (DateTimeOffset.Now < demoUser.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
 
             demoUser2.AdvanceAllowance = demoUser2.Salary * 3;
-            demoUser2.ExpenseAllowance = demoUser2.Salary * 3;
+
             demoUser2.AccruedLeave = demoUser2.IsActive ? (DateTimeOffset.Now > demoUser2.HireDate.AddYears(1) ? (DateTimeOffset.Now < demoUser2.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
 
             await userManager.CreateAsync(admin, AuthorizationConstant.DEFAULT_PASSWORD);

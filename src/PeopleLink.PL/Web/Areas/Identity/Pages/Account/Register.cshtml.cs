@@ -267,16 +267,6 @@ namespace Web.Areas.Identity.Pages.Account
                 var loginUser = await _userManager.GetUserAsync(User);
 
                 var user = CreateUser();
-
-                //if (await _userManager.IsInRoleAsync(admin, "Admin"))
-                //{
-                //    user.Email = $"{ReplaceTurkishCharacters(Input.FirstName).ToLower()}.{ReplaceTurkishCharacters(Input.LastName).ToLower()}@bilgeadam.com";
-                //}
-                //else
-                //{
-                //user.Email = $"{ReplaceTurkishCharacters(Input.FirstName).ToLower()}.{ReplaceTurkishCharacters(Input.LastName).ToLower()}@bilgeadamboost.com";
-                //}
-
                 user.Email = $"{ReplaceTurkishCharacters(Input.FirstName).ToLower()}.{ReplaceTurkishCharacters(Input.LastName).ToLower()}@bilgeadamboost.com";
                 user.FirstName = ti.ToTitleCase(Input.FirstName);
                 user.LastName = ti.ToTitleCase(Input.LastName);
@@ -310,8 +300,7 @@ namespace Web.Areas.Identity.Pages.Account
                 user.Salary = Input.Salary;
                 user.Gender = Input.Gender;
                 user.AccruedLeave = user.IsActive ? (DateTimeOffset.Now > user.HireDate.AddYears(1) ? (DateTimeOffset.Now < user.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
-                user.ExpenseAllowance = user.Salary * 3;
-                user.AdvanceAllowance = user.Salary * 3;
+                               user.AdvanceAllowance = user.Salary * 3;
 
                 string ext = Path.GetExtension(Input.ProfileImage.FileName);
                 string fileName = Path.Combine(Guid.NewGuid().ToString() + ext);

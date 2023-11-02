@@ -67,37 +67,30 @@ namespace Web.Areas.Employee.Controllers
 
             if (ModelState.IsValid)
             {
-                if (expenses!.Any(l => l.Status == expenseViewModel.Status && l.ExpenseType == expenseViewModel.ExpenseType))
+                string ext = Path.GetExtension(expenseViewModel.Document.FileName);
+                string fileName = Path.Combine(Guid.NewGuid().ToString() + ext);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/document", fileName);
+
+                using (var fileStream = System.IO.File.Create(filePath))
                 {
-                    TempData["HasPendingExpense"] = "Onay bekleyen harcama talebiniz bulunmaktadır.";
-                    return RedirectToAction("AllExpenses");
+                    expenseViewModel.Document.CopyTo(fileStream);
                 }
-                else
+
+                var expense = new AddExpenseViewModel()
                 {
-                    string ext = Path.GetExtension(expenseViewModel.Document.FileName);
-                    string fileName = Path.Combine(Guid.NewGuid().ToString() + ext);
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/document", fileName);
+                    EmployeeId = expenseViewModel.EmployeeId,
+                    Currency = expenseViewModel.Currency,
+                    Amount = expenseViewModel.Amount,
+                    ExpenseType = expenseViewModel.ExpenseType,
+                    DocumentUri = fileName,
 
-                    using (var fileStream = System.IO.File.Create(filePath))
-                    {
-                        expenseViewModel.Document.CopyTo(fileStream);
-                    }
+                };
 
-                    var expense = new AddExpenseViewModel()
-                    {
-                        EmployeeId = expenseViewModel.EmployeeId,
-                        Currency = expenseViewModel.Currency,
-                        Amount = expenseViewModel.Amount,
-                        ExpenseType = expenseViewModel.ExpenseType,
-                        DocumentUri = fileName,
+                await _httpClient.PostAsJsonAsync("https://localhost:7167/api/Expense/", expense);
 
-                    };
+                TempData["SuccessExpense"] = "Harcama talebi başarıyla oluşturuldu.";
+                return RedirectToAction("AllExpenses");
 
-                    await _httpClient.PostAsJsonAsync("https://localhost:7167/api/Expense/", expense);
-
-                    TempData["SuccessExpense"] = "Harcama talebi başarıyla oluşturuldu.";
-                    return RedirectToAction("AllExpenses");
-                }
             }
             return View();
         }

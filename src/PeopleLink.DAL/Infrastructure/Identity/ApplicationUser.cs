@@ -38,7 +38,6 @@ namespace Infrastructure.Identity
         public decimal Salary { get; set; }
         public Gender Gender { get; set; }
         public int AccruedLeave { get; set; }
-        public decimal ExpenseAllowance { get; set; }
         public decimal AdvanceAllowance { get; set; }
     }
 }
