@@ -29,7 +29,7 @@ namespace Infrastructure.Identity
                 LastName = "Çakır",
                 BirthDate = new DateTime(1989, 06, 14),
                 BirthPlaceName = "Ankara",
-                PictureUri = "0bd2fa7e-6679-4415-ba8c-68362b7f8c13.jpg",
+                PictureUri = "sule.jpg",
                 IdentityNumber = "48951167304",
                 HireDate = new DateTime(2017, 08, 26),
                 OccupationId = 1,
@@ -57,7 +57,7 @@ namespace Infrastructure.Identity
                 MiddleLastName = "Karaca",
                 BirthDate = new DateTime(1990, 05, 10),
                 BirthPlaceName = "Eskişehir",
-                PictureUri = "14e52590-1d10-45fb-8480-7737a8eaf542.jpg",
+                PictureUri = "ezgi.jpg",
                 IdentityNumber = "12345678910",
                 HireDate = new DateTime(2020, 05, 10),
                 OccupationId = 1,
@@ -74,34 +74,6 @@ namespace Infrastructure.Identity
                 Gender = Gender.Female
             };
 
-
-            var demoUser2 = new ApplicationUser()
-            {
-                UserName = "ahmet.yilmaz@bilgeadamboost.com",
-                Email = "ahmet.yilmaz@bilgeadamboost.com",
-                EmailConfirmed = true,
-                PhoneNumber = "5557894512",
-                FirstName = "Ahmet",
-                LastName = "Yılmaz",
-                BirthDate = new DateTime(1988, 04, 09),
-                BirthPlaceName = "İzmir",
-                PictureUri = "14e52590-1d10-45fb-8480-7737a8eaf542.jpg",
-                IdentityNumber = "54789621475",
-                HireDate = new DateTime(2018, 07, 10),
-                OccupationId = 2,
-                DepartmentId = 2,
-                OccupationName = "İş Analisti",
-                DepartmentName = "Ar-Ge Departmanı",
-                CompanyName = "Bilge Adam Teknoloji",
-                CityId = 6,
-                DistrictId = 1922,
-                CityName = "Ankara",
-                DistrictName = "Etimesgut",
-                FullAddress = "B Sok. 23 / 1",
-                Salary = 43000,
-                Gender = Gender.Male
-            };
-
             var manager = new ApplicationUser()
             {
                 UserName = AuthorizationConstant.DEFAULT_MANAGER_USER,
@@ -113,7 +85,7 @@ namespace Infrastructure.Identity
                 LastName = "Kaya",
                 BirthDate = new DateTime(1985, 02, 21),
                 BirthPlaceName = "İstanbul",
-                PictureUri = "a0eea1e9-d93f-4c0f-82b3-a4333983c450.jpg",
+                PictureUri = "kaan.png",
                 IdentityNumber = "10124578962",
                 HireDate = new DateTime(2015, 04, 10),
                 OccupationId = 3,
@@ -133,9 +105,11 @@ namespace Infrastructure.Identity
             demoUser.AdvanceAllowance = demoUser.Salary * 3;
             demoUser.AccruedLeave = demoUser.IsActive ? (DateTimeOffset.Now > demoUser.HireDate.AddYears(1) ? (DateTimeOffset.Now < demoUser.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
 
-            demoUser2.AdvanceAllowance = demoUser2.Salary * 3;
+            manager.AdvanceAllowance = manager.Salary * 3;
+            manager.AccruedLeave = manager.IsActive ? (DateTimeOffset.Now > manager.HireDate.AddYears(1) ? (DateTimeOffset.Now < manager.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
 
-            demoUser2.AccruedLeave = demoUser2.IsActive ? (DateTimeOffset.Now > demoUser2.HireDate.AddYears(1) ? (DateTimeOffset.Now < demoUser2.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
+            admin.AdvanceAllowance = admin.Salary * 3;
+            admin.AccruedLeave = admin.IsActive ? (DateTimeOffset.Now > admin.HireDate.AddYears(1) ? (DateTimeOffset.Now < admin.HireDate.AddYears(6) ? 14 : 20) : 0) : 0;
 
             await userManager.CreateAsync(admin, AuthorizationConstant.DEFAULT_PASSWORD);
             await roleManager.CreateAsync(new IdentityRole(AuthorizationConstant.Roles.ADMIN));
@@ -148,9 +122,6 @@ namespace Infrastructure.Identity
             await userManager.CreateAsync(demoUser, AuthorizationConstant.DEFAULT_PASSWORD);
             await roleManager.CreateAsync(new IdentityRole(AuthorizationConstant.Roles.EMPLOYEE));
             await userManager.AddToRoleAsync(demoUser, AuthorizationConstant.Roles.EMPLOYEE);
-
-            await userManager.CreateAsync(demoUser2, AuthorizationConstant.DEFAULT_PASSWORD);
-            await userManager.AddToRoleAsync(demoUser2, AuthorizationConstant.Roles.EMPLOYEE);
         }
     }
 }

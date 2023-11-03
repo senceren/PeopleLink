@@ -25,9 +25,9 @@
             <input asp-for="Input.Email" class="warning-input" autocomplete="username" aria-required="true" placeholder="ad.soyad@bilgeadamboost.com" type="email" required>
             <span asp-validation-for="Input.Email" class="text-danger"></span>
         </div>
-        <div class="form-floating mb-3">
+        <div class="form-floating mb-3" style="position:relative;">
             <input asp-for="Input.Password" type="password" class="warning-input" autocomplete="current-password" aria-required="true" placeholder="Şifre" required>
-            <span style="position: absolute; top: 178px; transform: translate(-50%); right: 16%; font-size: larger; cursor:pointer;" id="showPassword">👁️</span>
+            <span class="show-password" style="position: absolute; right: 19.3%; top: 10%; font-size: larger; cursor: pointer;">👁️</span>
             <span asp-validation-for="Input.Password" class="text-danger"></span>
         </div>
         <div class="checkbox">
@@ -56,7 +56,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const passwordField = document.querySelector('input[type="password"]');
-            const showPassword = document.querySelector('#showPassword');
+            const showPassword = document.querySelector('.show-password');
 
             showPassword.addEventListener('click', function () {
                 if (passwordField.type === 'password') {
