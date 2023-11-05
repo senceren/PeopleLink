@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Identity.Migrations
 {
     [DbContext(typeof(PeopleLinkIdentityContext))]
-    [Migration("20231103120419_InitialIdentity")]
+    [Migration("20231105063802_InitialIdentity")]
     partial class InitialIdentity
     {
         /// <inheritdoc />
