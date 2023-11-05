@@ -19,7 +19,7 @@ namespace ApplicationCore.Services
             mail.Body += "<h4>Şirket mail adresiniz ve geçici şifreniz tanımlanmıştır..</h4> <br/>";
             mail.Body += $"<strong>Mail Adresi : </strong> {personelEmail} <br/> <br/>";
             mail.Body += $"<strong>Geçici Şifre : </strong> {password}<br/> <br/>";
-            mail.Body += $"<a asp-route-userId=\"{userId}\" href=\"https://localhost:7167/Identity/Account/PasswordChange?userId={userId}\"> Şifrenizi değiştirmek için buraya tıklayınız</a>\n";
+            mail.Body += $"<a asp-route-userId=\"{userId}\" href=\"https://peoplelink.emrahsozlu.com/Identity/Account/PasswordChange?userId={userId}\"> Şifrenizi değiştirmek için buraya tıklayınız</a>\n";
             mail.IsBodyHtml = true;
             mail.From = new MailAddress("gurbuzysn@gmail.com", "People Link İnsan Kaynakları");
             mail.To.Add(personelEmail);

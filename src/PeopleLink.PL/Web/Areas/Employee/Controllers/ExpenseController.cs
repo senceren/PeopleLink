@@ -57,7 +57,7 @@ namespace Web.Areas.Employee.Controllers
         public async Task<IActionResult> ExpenseRequest(PostExpenseViewModel expenseViewModel)
         {
             var user = await _userManager.GetUserAsync(User);
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?&employeeId={user.Id}";
+            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?employeeId={user.Id}";
             var expenses = await _httpClient.GetFromJsonAsync<List<GetExpenseViewModel>>(apiUrl);
             var expensesTypes = Enum.GetValues(typeof(ExpenseType)).Cast<ExpenseType>().ToList();
             var currencyTypes = Enum.GetValues(typeof(Currency)).Cast<Currency>().ToList();

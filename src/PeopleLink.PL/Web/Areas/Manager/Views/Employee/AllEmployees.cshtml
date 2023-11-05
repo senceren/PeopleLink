@@ -52,7 +52,7 @@
                                             <tbody>
                                                 @foreach (var employee in Model)
                                                 {
-                                                    <tr>
+                                                    <tr class="text-center">
                                                         <td><img src="~/img/@employee.PictureUri" alt="Alternate Text" height="60" width="80" /></td>
                                                         <td>@employee.FirstName  @(employee.MiddleName != null ? employee.MiddleName : "") @(employee.MiddleLastName != null ? employee.MiddleLastName : "") @employee.LastName</td>
                                                         <td>@employee.OccupationName</td>
