@@ -348,11 +348,11 @@ namespace Web.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        if (await _userManager.IsInRoleAsync(user, "Manager"))
                         {
                             return RedirectToAction("AllManagers", "Manager", new { area = "Admin" });
                         }
-                        else if (await _userManager.IsInRoleAsync(user, "Manager"))
+                        else if (await _userManager.IsInRoleAsync(user, "Employee"))
                         {
                             return RedirectToAction("AllEmployees", "Employee", new { area = "Manager" });
                         }
