@@ -36,7 +36,7 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var app = builder.Build();
-
+app.UseDeveloperExceptionPage();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
