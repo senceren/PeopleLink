@@ -23,8 +23,8 @@ namespace Web.Areas.Employee.Controllers
             var user = await _userManager.GetUserAsync(User);
             var employeeId = _userManager.GetUserId(User);
             TempData["Picture"] = (await _userManager.GetUserAsync(User))!.PictureUri;
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?employeeId={employeeId}";
-            string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?status={status}&employeeId={employeeId}";
+            string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Expense?employeeId={employeeId}";
+            string apiUrlWithStatus = $"https://peoplelinkapi.gurbuzyasin.com/api/Expense?status={status}&employeeId={employeeId}";
             NameMethod(user);
 
             ViewBag.Status = status;
@@ -57,7 +57,7 @@ namespace Web.Areas.Employee.Controllers
         public async Task<IActionResult> ExpenseRequest(PostExpenseViewModel expenseViewModel)
         {
             var user = await _userManager.GetUserAsync(User);
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?employeeId={user.Id}";
+            string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Expense?employeeId={user.Id}";
             var expenses = await _httpClient.GetFromJsonAsync<List<GetExpenseViewModel>>(apiUrl);
             var expensesTypes = Enum.GetValues(typeof(ExpenseType)).Cast<ExpenseType>().ToList();
             var currencyTypes = Enum.GetValues(typeof(Currency)).Cast<Currency>().ToList();
@@ -86,7 +86,7 @@ namespace Web.Areas.Employee.Controllers
 
                 };
 
-                await _httpClient.PostAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Expense/", expense);
+                await _httpClient.PostAsJsonAsync("https://peoplelinkapi.gurbuzyasin.com/api/Expense/", expense);
 
                 TempData["SuccessExpense"] = "Harcama talebi başarıyla oluşturuldu.";
                 return RedirectToAction("AllExpenses");
@@ -99,12 +99,12 @@ namespace Web.Areas.Employee.Controllers
         public async Task<IActionResult> DeleteExpense(int expenseId)
         {
 
-            var expense = await _httpClient.GetFromJsonAsync<GetExpenseViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Expense/{expenseId}");
+            var expense = await _httpClient.GetFromJsonAsync<GetExpenseViewModel>($"https://peoplelinkapi.gurbuzyasin.com/api/Expense/{expenseId}");
 
             var user = await _userManager.GetUserAsync(User);
             NameMethod(user);
 
-            await _httpClient.DeleteAsync($"https://peoplelinkapi.emrahsozlu.com/api/Expense/{expenseId}");
+            await _httpClient.DeleteAsync($"https://peoplelinkapi.gurbuzyasin.com/api/Expense/{expenseId}");
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/document", expense!.DocumentUri);
 
             if (System.IO.File.Exists(filePath))

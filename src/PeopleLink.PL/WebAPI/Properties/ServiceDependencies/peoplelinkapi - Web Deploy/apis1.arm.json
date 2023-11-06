@@ -53,7 +53,7 @@
               "type": "Microsoft.ApiManagement/service",
               "location": "[parameters('resourceLocation')]",
               "properties": {
-                "publisherEmail": "emrahsozlu@hotmail.com",
+                "publisherEmail": "gurbuzyasin@hotmail.com",
                 "publisherName": "PeopleLink",
                 "notificationSenderEmail": "apimgmt-noreply@mail.windowsazure.com",
                 "hostnameConfigurations": [

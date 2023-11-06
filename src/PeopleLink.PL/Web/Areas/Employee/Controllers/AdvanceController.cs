@@ -49,7 +49,7 @@ namespace Web.Areas.Employee.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
-                string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Advance?employeeId={userId}";
+                string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Advance?employeeId={userId}";
 
                 var advances = await _httpClient.GetFromJsonAsync<List<AdvanceViewModel>>(apiUrl);
 
@@ -89,7 +89,7 @@ namespace Web.Areas.Employee.Controllers
                         }
                     }
 
-                    var resp = await _httpClient.PostAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Advance", advanceViewModel);
+                    var resp = await _httpClient.PostAsJsonAsync("https://peoplelinkapi.gurbuzyasin.com/api/Advance", advanceViewModel);
 
                     user.AdvanceAllowance = user.AdvanceAllowance - advanceAmount;
                     await _userManager.UpdateAsync(user);
@@ -109,8 +109,8 @@ namespace Web.Areas.Employee.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var userId = _userManager.GetUserId(User);
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Advance?employeeId={userId}";
-            string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Advance?status={status}&employeeId={userId}";
+            string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Advance?employeeId={userId}";
+            string apiUrlWithStatus = $"https://peoplelinkapi.gurbuzyasin.com/api/Advance?status={status}&employeeId={userId}";
             TempData["Picture"] = (await _userManager.GetUserAsync(User))!.PictureUri;
             ViewBag.Status = status;
             ViewBag.HasPendingAdvance = TempData["HasPendingAdvance"];
@@ -133,7 +133,7 @@ namespace Web.Areas.Employee.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteAdvance(int advanceId)
         {
-            var advance = await _httpClient.GetFromJsonAsync<AdvanceViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Advance/{advanceId}");
+            var advance = await _httpClient.GetFromJsonAsync<AdvanceViewModel>($"https://peoplelinkapi.gurbuzyasin.com/api/Advance/{advanceId}");
             var user = await _userManager.GetUserAsync(User);
             NameMethod(user);
 
@@ -144,7 +144,7 @@ namespace Web.Areas.Employee.Controllers
             user.AdvanceAllowance = user.AdvanceAllowance + advanceAmount;
             await _userManager.UpdateAsync(user);
 
-            await _httpClient.DeleteAsync($"https://peoplelinkapi.emrahsozlu.com/api/Advance/{advanceId}");
+            await _httpClient.DeleteAsync($"https://peoplelinkapi.gurbuzyasin.com/api/Advance/{advanceId}");
             TempData["DeleteSuccessAdvance"] = "Avans talebi başarıyla silindi.";
             return RedirectToAction("AllAdvances");
         }

@@ -45,7 +45,7 @@ namespace Web.Areas.Employee.Controllers
         public async Task<IActionResult> LeaveRequest(LeaveViewModel leaveViewModel)  // Formdan gelen izin verilerini apiye gönderip kaydettirir.
         {
             var user = await _userManager.GetUserAsync(User);
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Leave?employeeId={user.Id}";
+            string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Leave?employeeId={user.Id}";
 
             var leaves = await _httpClient.GetFromJsonAsync<List<LeaveViewModel>>(apiUrl);
             var leaveTypes = Enum.GetValues(typeof(LeaveType)).Cast<LeaveType>().ToList();
@@ -87,7 +87,7 @@ namespace Web.Areas.Employee.Controllers
                         }
 
                     }
-                    var response = await _httpClient.PostAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Leave", leaveViewModel);
+                    var response = await _httpClient.PostAsJsonAsync("https://peoplelinkapi.gurbuzyasin.com/api/Leave", leaveViewModel);
 
                     await _userManager.UpdateAsync(user);
                     TempData["SuccessLeave"] = "İzin talebi başarıyla oluşturuldu.";
@@ -105,8 +105,8 @@ namespace Web.Areas.Employee.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var userId = _userManager.GetUserId(User);
-            string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Leave?employeeId={userId}";
-            string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Leave?approvalStatus={status}&employeeId={userId}";
+            string apiUrl = $"https://peoplelinkapi.gurbuzyasin.com/api/Leave?employeeId={userId}";
+            string apiUrlWithStatus = $"https://peoplelinkapi.gurbuzyasin.com/api/Leave?approvalStatus={status}&employeeId={userId}";
             TempData["Picture"] = (await _userManager.GetUserAsync(User))!.PictureUri;
             NameMethod(user);
             ViewBag.Status = status;
@@ -124,13 +124,13 @@ namespace Web.Areas.Employee.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteLeave(int leaveId)
         {
-            var leave = await _httpClient.GetFromJsonAsync<LeaveViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Leave/{leaveId}");
+            var leave = await _httpClient.GetFromJsonAsync<LeaveViewModel>($"https://peoplelinkapi.gurbuzyasin.com/api/Leave/{leaveId}");
             var user = await _userManager.GetUserAsync(User);
 
             user.AccruedLeave = user.AccruedLeave + leave.TotalDays;
             await _userManager.UpdateAsync(user);
             NameMethod(user);
-            await _httpClient.DeleteAsync($"https://peoplelinkapi.emrahsozlu.com/api/Leave/{leaveId}");
+            await _httpClient.DeleteAsync($"https://peoplelinkapi.gurbuzyasin.com/api/Leave/{leaveId}");
 
             TempData["DeleteSuccessLeave"] = "İzin talebi başarıyla silindi.";
             return RedirectToAction("AllLeaves");
