@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\document\" />
+    <Folder Include="wwwroot\document\" />
   </ItemGroup>
 
 </Project>
