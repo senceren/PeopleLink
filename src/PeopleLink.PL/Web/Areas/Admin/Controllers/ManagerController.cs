@@ -55,7 +55,7 @@ namespace Web.Areas.Admin.Controllers
         {
             var manager = await _userManager.GetUserAsync(User);
             var managers = await _userManager.GetUsersInRoleAsync("Manager");
-            var companies = await _httpClient.GetFromJsonAsync<List<CompanyViewModel>>("https://peoplelinkapi.emrahsozlu.com/api/Company");
+            var companies = await _httpClient.GetFromJsonAsync<List<CompanyViewModel>>("https://localhost:7167/api/Company");
             var companiesList = companies.Select(c => new SelectListItem(c.CompanyName, c.Id.ToString())).ToList();
             var managersList = managers.Where(x => x.CompanyId == 0).Select(c => new SelectListItem($"{c.FirstName} {c.LastName}", c.Id.ToString())).ToList();
 
@@ -72,7 +72,7 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> AssignManagerToCompany(AssignViewModel vm)
         {
             var manager = await _userManager.FindByIdAsync(vm.ManagerId);
-            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Company/{vm.CompanyId}");
+            var company = await _httpClient.GetFromJsonAsync<CompanyViewModel>($"https://localhost:7167/api/Company/{vm.CompanyId}");
 
             if (ModelState.IsValid)
             {

@@ -58,7 +58,7 @@ namespace Web.Areas.Manager.Controllers
                 {
                     var userId = employee.Id;
 
-                    string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Leave?approvalStatus={status}&employeeId={userId}";
+                    string apiUrlWithStatus = $"https://localhost:7167/api/Leave?approvalStatus={status}&employeeId={userId}";
                     var leaveWithStatus = await _httpClient.GetFromJsonAsync<List<LeaveViewModel>>(apiUrlWithStatus);
 
                     employeeLeaves.Leaves.AddRange(leaveWithStatus);
@@ -72,7 +72,7 @@ namespace Web.Areas.Manager.Controllers
                 foreach (var employee in employees)
                 {
                     var userId = employee.Id;
-                    string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Leave?employeeId={userId}";
+                    string apiUrl = $"https://localhost:7167/api/Leave?employeeId={userId}";
                     var leaves = await _httpClient.GetFromJsonAsync<List<LeaveViewModel>>(apiUrl);
                     employeeLeaves.Leaves.AddRange(leaves);
                     ViewBag.Status = status;
@@ -85,14 +85,14 @@ namespace Web.Areas.Manager.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateLeave(LeaveViewModel leave)
         {
-            await _httpClient.PutAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Leave/" + leave.Id, leave);
+            await _httpClient.PutAsJsonAsync("https://localhost:7167/api/Leave/" + leave.Id, leave);
             TempData["Success"] = $"Başarıyla {leave.Status}";
             return RedirectToAction(nameof(LeaveRequests));
         }
 
         public async Task<IActionResult> UpdateLeave(int leaveId, string status)
         {
-            var leave = await _httpClient.GetFromJsonAsync<LeaveViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Leave/{leaveId}");
+            var leave = await _httpClient.GetFromJsonAsync<LeaveViewModel>($"https://localhost:7167/api/Leave/{leaveId}");
 
             leave.Status = status;
             leave.ApprovalDate = DateTime.Now;
@@ -113,7 +113,7 @@ namespace Web.Areas.Manager.Controllers
                 foreach (var employee in employees)
                 {
                     var userId = employee.Id;
-                    string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?status={status}&employeeId={userId}";
+                    string apiUrlWithStatus = $"https://localhost:7167/api/Expense?status={status}&employeeId={userId}";
                     var expenseWithStatus = await _httpClient.GetFromJsonAsync<List<GetExpenseViewModel>>(apiUrlWithStatus);
                     employeeExpenses.Expenses.AddRange(expenseWithStatus);
                     ViewBag.Status = status;
@@ -126,7 +126,7 @@ namespace Web.Areas.Manager.Controllers
                 foreach (var employee in employees)
                 {
                     var userId = employee.Id;
-                    string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Expense?employeeId={userId}";
+                    string apiUrl = $"https://localhost:7167/api/Expense?employeeId={userId}";
                     var expenses = await _httpClient.GetFromJsonAsync<List<GetExpenseViewModel>>(apiUrl);
                     employeeExpenses.Expenses.AddRange(expenses);
                     ViewBag.Status = status;
@@ -138,14 +138,14 @@ namespace Web.Areas.Manager.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateExpense(GetExpenseViewModel expense)
         {
-            await _httpClient.PutAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Expense/" + expense.Id, expense);
+            await _httpClient.PutAsJsonAsync("https://localhost:7167/api/Expense/" + expense.Id, expense);
             TempData["Success"] = $"Başarıyla {expense.Status}";
             return RedirectToAction(nameof(ExpenseRequests));
         }
 
         public async Task<IActionResult> UpdateExpense(int expenseId, string status)
         {
-            var expense = await _httpClient.GetFromJsonAsync<GetExpenseViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Expense/{expenseId}");
+            var expense = await _httpClient.GetFromJsonAsync<GetExpenseViewModel>($"https://localhost:7167/api/Expense/{expenseId}");
 
             expense.Status = status;
             expense.ResponseDate = DateTime.Now;
@@ -166,7 +166,7 @@ namespace Web.Areas.Manager.Controllers
                 foreach (var employee in employees)
                 {
                     var userId = employee.Id;
-                    string apiUrlWithStatus = $"https://peoplelinkapi.emrahsozlu.com/api/Advance?status={status}&employeeId={userId}";
+                    string apiUrlWithStatus = $"https://localhost:7167/api/Advance?status={status}&employeeId={userId}";
                     var advanceWithStatus = await _httpClient.GetFromJsonAsync<List<AdvanceViewModel>>(apiUrlWithStatus);
                     employeeAdvances.Advances.AddRange(advanceWithStatus);
                     ViewBag.Status = status;
@@ -179,7 +179,7 @@ namespace Web.Areas.Manager.Controllers
                 foreach (var employee in employees)
                 {
                     var userId = employee.Id;
-                    string apiUrl = $"https://peoplelinkapi.emrahsozlu.com/api/Advance?employeeId={userId}";
+                    string apiUrl = $"https://localhost:7167/api/Advance?employeeId={userId}";
                     var advances = await _httpClient.GetFromJsonAsync<List<AdvanceViewModel>>(apiUrl);
                     employeeAdvances.Advances.AddRange(advances);
                     ViewBag.Status = status;
@@ -191,14 +191,14 @@ namespace Web.Areas.Manager.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateAdvance(AdvanceViewModel advance)
         {
-            await _httpClient.PutAsJsonAsync("https://peoplelinkapi.emrahsozlu.com/api/Advance/" + advance.Id, advance);
+            await _httpClient.PutAsJsonAsync("https://localhost:7167/api/Advance/" + advance.Id, advance);
             TempData["Success"] = $"Başarıyla {advance.Status}";
             return RedirectToAction(nameof(AdvanceRequests));
         }
 
         public async Task<IActionResult> UpdateAdvance(int advanceId, string status)
         {
-            var advance = await _httpClient.GetFromJsonAsync<AdvanceViewModel>($"https://peoplelinkapi.emrahsozlu.com/api/Advance/{advanceId}");
+            var advance = await _httpClient.GetFromJsonAsync<AdvanceViewModel>($"https://localhost:7167/api/Advance/{advanceId}");
 
             advance.Status = status;
             advance.ResponseDate = DateTime.Now;
